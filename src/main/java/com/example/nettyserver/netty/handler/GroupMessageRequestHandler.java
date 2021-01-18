@@ -1,5 +1,6 @@
 package com.example.nettyserver.netty.handler;
 
+import com.example.nettyserver.netty.annotations.RequestHandler;
 import com.example.nettyserver.netty.protocol.request.GroupMessageRequestPacket;
 import com.example.nettyserver.netty.protocol.response.GroupMessageResponsePacket;
 import com.example.nettyserver.netty.util.SessionUtil;
@@ -7,14 +8,12 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequestHandler(name = "GROUP_MESSAGE_REQUEST")
 @ChannelHandler.Sharable
 public class GroupMessageRequestHandler extends SimpleChannelInboundHandler<GroupMessageRequestPacket> {
-    public static final GroupMessageRequestHandler INSTANCE = new GroupMessageRequestHandler();
-
-    private GroupMessageRequestHandler(){
-
-    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, GroupMessageRequestPacket requestPacket){

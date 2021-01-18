@@ -1,0 +1,46 @@
+package com.example.nettyserver.netty.config;
+
+import com.example.nettyserver.netty.annotations.RequestHandler;
+import com.example.nettyserver.netty.enums.HandlerEnum;
+import com.example.nettyserver.netty.protocol.Packet;
+import io.netty.channel.SimpleChannelInboundHandler;
+import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Set;
+
+/**
+ * @Description: init阶段构造requestHandler的map映射, command->具体handler类
+ * @author: i_laowei
+ * @date: 2021/1/18  10:10
+ */
+
+@SuppressWarnings("unchecked")
+@Configuration
+public class HandlerMapConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(HandlerMapConfig.class);
+
+    @Bean(name = "handlerMap")
+    public HashMap<Byte, SimpleChannelInboundHandler<? extends Packet>> initMap() {
+        logger.info("初始化阶段开始执行handlerMap初始化...");
+        HashMap<Byte, SimpleChannelInboundHandler<? extends Packet>> handlerMap = new HashMap<>();
+        Set<Class<?>> set = new Reflections("com.example.nettyserver").getTypesAnnotatedWith(RequestHandler.class);
+        for (Class clazz : set) {
+            RequestHandler requestHandler = (RequestHandler) clazz.getAnnotation(RequestHandler.class);
+            try {
+                // 通过handler枚举类获取当前handler对应的command值
+                Byte command = HandlerEnum.valueOf(requestHandler.name()).getCommand();
+                handlerMap.put(command, (SimpleChannelInboundHandler<? extends Packet>)clazz.newInstance());
+            } catch (Exception e) {
+                logger.error("handlerMap初始化失败!Exceptions:{}", e.getMessage());
+            }
+        }
+        return handlerMap;
+    }
+
+}

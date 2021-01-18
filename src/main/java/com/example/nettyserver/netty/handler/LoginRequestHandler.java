@@ -8,9 +8,11 @@ import com.example.nettyserver.netty.util.SessionUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 @ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
     public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();

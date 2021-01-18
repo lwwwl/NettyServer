@@ -13,8 +13,19 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
+/**
+ *@description  nettyServer启动类
+ *@author laowei
+ *@date 2021/1/18 11:47
+ */
+
 @Component
 public class NettyServer {
+
+    @Resource
+    IMHandler imHandler;
 
     public void start(int port) {
         final NioEventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -33,7 +44,7 @@ public class NettyServer {
                         ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
                         ch.pipeline().addLast(AuthHandler.INSTANCE);
-                        ch.pipeline().addLast(IMHandler.INSTANCE);
+                        ch.pipeline().addLast(imHandler);
                     }
                 });
         bind(serverBootstrap, port);
@@ -45,7 +56,6 @@ public class NettyServer {
                 System.out.println("端口绑定成功！");
             } else {
                 System.out.println("端口绑定失败！");
-                bind(serverBootstrap, port + 1);
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.nettyserver.netty.handler;
 
+import com.example.nettyserver.netty.annotations.RequestHandler;
 import com.example.nettyserver.netty.protocol.request.JoinGroupRequestPacket;
 import com.example.nettyserver.netty.protocol.response.JoinGroupResponsePacket;
 import com.example.nettyserver.netty.util.SessionUtil;
@@ -7,14 +8,12 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequestHandler(name = "JOIN_GROUP_REQUEST")
 @ChannelHandler.Sharable
 public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGroupRequestPacket> {
-    public static final JoinGroupRequestHandler INSTANCE = new JoinGroupRequestHandler();
-
-    private JoinGroupRequestHandler(){
-
-    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JoinGroupRequestPacket requestPacket){

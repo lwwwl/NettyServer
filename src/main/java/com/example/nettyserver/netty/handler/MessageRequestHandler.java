@@ -1,5 +1,6 @@
 package com.example.nettyserver.netty.handler;
 
+import com.example.nettyserver.netty.annotations.RequestHandler;
 import com.example.nettyserver.netty.protocol.request.MessageRequestPacket;
 import com.example.nettyserver.netty.protocol.response.MessageResponsePacket;
 import com.example.nettyserver.netty.session.Session;
@@ -8,14 +9,12 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequestHandler(name = "MESSAGE_REQUEST")
 @ChannelHandler.Sharable
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
-    public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
-
-    private MessageRequestHandler(){
-
-    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket messageRequestPacket){
