@@ -27,6 +27,15 @@ public class NettyServer {
     @Resource
     IMHandler imHandler;
 
+    @Resource
+    PacketCodecHandler packetCodecHandler;
+
+    @Resource
+    LoginRequestHandler loginRequestHandler;
+
+    @Resource
+    AuthHandler authHandler;
+
     public void start(int port) {
         final NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -41,9 +50,9 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     protected void initChannel(NioSocketChannel ch){
                         ch.pipeline().addLast(new Spliter());
-                        ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
-                        ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(AuthHandler.INSTANCE);
+                        ch.pipeline().addLast(packetCodecHandler);
+                        ch.pipeline().addLast(loginRequestHandler);
+                        ch.pipeline().addLast(authHandler);
                         ch.pipeline().addLast(imHandler);
                     }
                 });

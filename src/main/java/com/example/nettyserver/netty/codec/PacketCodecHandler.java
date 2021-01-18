@@ -6,16 +6,13 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @ChannelHandler.Sharable
 public class PacketCodecHandler extends MessageToMessageCodec<ByteBuf, Packet> {
-    public static final PacketCodecHandler INSTANCE = new PacketCodecHandler();
-
-    private PacketCodecHandler(){
-
-    }
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> out){

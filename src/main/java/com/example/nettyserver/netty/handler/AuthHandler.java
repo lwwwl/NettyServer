@@ -4,7 +4,9 @@ import com.example.nettyserver.netty.util.SessionUtil;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import org.springframework.stereotype.Component;
 
+@Component
 @ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
     public static final AuthHandler INSTANCE = new AuthHandler();

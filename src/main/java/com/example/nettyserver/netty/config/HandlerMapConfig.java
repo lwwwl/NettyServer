@@ -40,6 +40,8 @@ public class HandlerMapConfig {
                 logger.error("handlerMap初始化失败!Exceptions:{}", e.getMessage());
             }
         }
+        logger.info("handlerMap初始化结束！");
+        logger.info(handlerMap.toString());
         return handlerMap;
     }
 
