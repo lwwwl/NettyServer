@@ -47,6 +47,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
             LoginInfo loginInfo = loginInfoForRedis(loginRequestPacket);
             try {
                 logger.info("登陆信息录入Redis...");
+                // TODO 数据库操作改为异步
                 redisTemplate.opsForSet().add(userId, loginInfo);
                 logger.info("Redis:登陆信息录入成功！userName:{}", loginRequestPacket.getUserName());
             } catch (Exception e) {
