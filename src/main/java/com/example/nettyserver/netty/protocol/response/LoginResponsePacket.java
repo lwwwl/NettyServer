@@ -1,10 +1,12 @@
 package com.example.nettyserver.netty.protocol.response;
 
+import com.example.nettyserver.netty.annotations.TransmissionPacket;
 import com.example.nettyserver.netty.protocol.Packet;
 import com.example.nettyserver.netty.protocol.command.Command;
 import lombok.Data;
 
 @Data
+@TransmissionPacket(name = "LOGIN_RESPONSE")
 public class LoginResponsePacket extends Packet {
 
     private String userId;

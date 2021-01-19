@@ -1,7 +1,9 @@
 package com.example.nettyserver.netty.serializer;
 
 import com.alibaba.fastjson.JSON;
+import com.example.nettyserver.netty.annotations.PacketSerializer;
 
+@PacketSerializer(name = "JSONSerializer")
 public class JSONSerializer implements Serializer {
 
     @Override

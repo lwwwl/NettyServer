@@ -1,48 +1,28 @@
 package com.example.nettyserver.netty.protocol;
 
-import com.example.nettyserver.netty.protocol.request.*;
-import com.example.nettyserver.netty.protocol.response.*;
-import com.example.nettyserver.netty.serializer.JSONSerializer;
 import com.example.nettyserver.netty.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.Map;
 
-import static com.example.nettyserver.netty.protocol.command.Command.*;
+/**
+ *@description  报文解析器
+ *@author laowei
+ *@date 2021/1/19 10:54
+ */
 
+@Component
 public class PacketCodeC {
 
     public static final int MAGIC_NUMBER = 0x12345678;
-    public static final PacketCodeC INSTANCE = new PacketCodeC();
 
-    private final Map<Byte, Class<? extends Packet>> packetTypeMap;
-    private final Map<Byte, Serializer> serializerMap;
+    @Resource(name = "packetTypeMap")
+    HashMap<Byte, Class<? extends Packet>> packetTypeMap;
 
-
-    private PacketCodeC(){
-        packetTypeMap = new HashMap<>();
-        packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
-        packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
-        packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
-        packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
-        packetTypeMap.put(LOGOUT_REQUEST, LogoutRequestPacket.class);
-        packetTypeMap.put(LOGOUT_RESPONSE, LogoutResponsePacket.class);
-        packetTypeMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
-        packetTypeMap.put(CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
-        packetTypeMap.put(JOIN_GROUP_REQUEST, JoinGroupRequestPacket.class);
-        packetTypeMap.put(JOIN_GROUP_RESPONSE, JoinGroupResponsePacket.class);
-        packetTypeMap.put(QUIT_GROUP_REQUEST, QuitGroupRequestPacket.class);
-        packetTypeMap.put(QUIT_GROUP_RESPONSE, QuitGroupResponsePacket.class);
-        packetTypeMap.put(LIST_GROUP_MEMBERS_REQUEST, ListGroupMembersRequestPacket.class);
-        packetTypeMap.put(LIST_GROUP_MEMBERS_RESPONSE, ListGroupMembersResponsePacket.class);
-        packetTypeMap.put(GROUP_MESSAGE_REQUEST, GroupMessageRequestPacket.class);
-        packetTypeMap.put(GROUP_MESSAGE_RESPONSE, GroupMessageResponsePacket.class);
-
-        serializerMap = new HashMap<>();
-        Serializer serializer = new JSONSerializer();
-        serializerMap.put(serializer.getSerializerAlgorithm(), serializer);
-    }
+    @Resource(name = "serializerMap")
+    HashMap<Byte, Serializer> serializerMap;
 
     public void encode(ByteBuf byteBuf, Packet packet) {
 

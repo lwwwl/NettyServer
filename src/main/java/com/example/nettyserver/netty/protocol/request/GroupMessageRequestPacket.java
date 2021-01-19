@@ -1,5 +1,6 @@
 package com.example.nettyserver.netty.protocol.request;
 
+import com.example.nettyserver.netty.annotations.TransmissionPacket;
 import com.example.nettyserver.netty.protocol.Packet;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import static com.example.nettyserver.netty.protocol.command.Command.GROUP_MESSAGE_REQUEST;
 
 @Data
+@TransmissionPacket(name = "GROUP_MESSAGE_REQUEST")
 @NoArgsConstructor
 public class GroupMessageRequestPacket extends Packet {
 

@@ -6,14 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @Description: 请求处理类注解
+ * @Description: 报文解析类注解
  * @author: i_laowei
- * @date: 2021/1/18  9:46
+ * @date: 2021/1/19  10:16
  */
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RequestHandler {
+public @interface PacketSerializer {
 
     String name();
 

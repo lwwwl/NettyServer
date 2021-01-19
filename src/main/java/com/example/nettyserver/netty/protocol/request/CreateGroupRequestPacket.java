@@ -1,5 +1,6 @@
 package com.example.nettyserver.netty.protocol.request;
 
+import com.example.nettyserver.netty.annotations.TransmissionPacket;
 import com.example.nettyserver.netty.protocol.Packet;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import static com.example.nettyserver.netty.protocol.command.Command.CREATE_GROU
 
 
 @Data
+@TransmissionPacket(name = "CREATE_GROUP_REQUEST")
 public class CreateGroupRequestPacket extends Packet {
 
     private List<String> userIdList;
