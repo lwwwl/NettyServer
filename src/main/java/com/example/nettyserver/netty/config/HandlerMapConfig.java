@@ -41,7 +41,7 @@ public class HandlerMapConfig {
             }
         }
         logger.info("handlerMap初始化结束！");
-        logger.info(handlerMap.toString());
+        logger.info("handlerMap:{}", handlerMap.toString());
         return handlerMap;
     }
 

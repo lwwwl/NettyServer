@@ -39,7 +39,7 @@ public class SerializerMapConfig {
             }
         }
         logger.info("serializerMap初始化结束！");
-        logger.info(serializerMap.toString());
+        logger.info("serializerMap:{}", serializerMap.toString());
         return serializerMap;
     }
 

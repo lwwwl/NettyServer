@@ -34,13 +34,14 @@ public class PacketTypeMapConfig {
             try {
                 // 通过Packet枚举类获取当前PacketType对应的command值
                 Byte command = PacketTypeEnum.valueOf(transmissionPacket.name()).getCommand();
-                packetTypeMap.put(command, (Class<? extends Packet>)clazz.newInstance());
+                packetTypeMap.put(command, clazz);
             } catch (Exception e) {
-                logger.error("handlerMap初始化失败!Exceptions:{}", e.getMessage());
+                logger.error("packetTypeMap初始化失败!Exceptions:{}", e.getMessage());
+                e.printStackTrace();
             }
         }
         logger.info("packetTypeMap初始化结束！");
-        logger.info(packetTypeMap.toString());
+        logger.info("packetTypeMap:{}", packetTypeMap.toString());
         return packetTypeMap;
     }
 
